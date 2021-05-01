@@ -34,7 +34,7 @@ header {
     align-items: center;
     position: relative;
 
-    background-color: white;
+    background-color: $white;
 
     svg {
       width: 25px;
@@ -64,6 +64,36 @@ header {
 
   .output {
     position: absolute;
-    top: 20px;
+    top: 60px;
+    border-radius: 4px;
+    background-color: $green;
+    color: $white;
+    width: 100%;
+    padding: 20px;
+    font-size: 1.9rem;
+
+    animation-duration: 0.25s;
+    animation-name: focus-search;
+
+    p {
+      margin: 0;
+      margin-bottom: 8px;
+    }
+
+    .dialog-tip {
+      color: $soft;
+      font-size: 1.8rem;
+    }
+  }
+}
+
+@keyframes focus-search {
+  from {
+    top: 75px;
+    opacity: 0.7;
+  }
+  to {
+    top: 60px;
+    opacity: 1;
   }
 }

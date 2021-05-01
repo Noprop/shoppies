@@ -11,6 +11,7 @@ interface Cache {
 const App = () => {
   const [nominations, setNominations] = useState<object[]>([]);
   const [nominationCache, setNominationCache] = useState<Cache>({});
+  const [searchFocus, setSearchFocus] = useState<boolean>(false);
 
   useEffect(() => {
     const newCache: Cache = {};
@@ -30,6 +31,8 @@ const App = () => {
           nominations={nominations}
           setNominations={setNominations}
           nominationCache={nominationCache}
+          searchFocus={searchFocus}
+          setSearchFocus={setSearchFocus}
         />
       </header>
       <Content 

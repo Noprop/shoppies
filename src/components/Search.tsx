@@ -16,6 +16,12 @@ interface Props {
   nominationCache: {
     [key: string]: boolean;
   };
+  searchFocus: boolean;
+  setSearchFocus: React.Dispatch<React.SetStateAction<boolean>>;
+}
+interface Dialog {
+  output: string,
+  tip: string
 }
 
 type Results = object[];
@@ -23,12 +29,14 @@ type Results = object[];
 const Search: React.FC<Props> = ({
   nominations,
   setNominations,
-  nominationCache
+  nominationCache,
+  searchFocus,
+  setSearchFocus,
 }) => {
   const [userInput, setUserInput] = useState<string>('');
   const [results, setResults] = useState<Results>([]);
   const [totalNumberOfResults, setTotalNumberOfResults] = useState<number>(0);
-  const [dialogBox, setDialogBox] = useState<string>('Enter any movie name here');
+  const [dialogBox, setDialogBox] = useState<Dialog>({ output: 'Enter any movie you want to nominate.', tip: 'Search by the movie name, not actor or year.' });
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     setUserInput(e.currentTarget.value);
@@ -54,16 +62,25 @@ const Search: React.FC<Props> = ({
           setTotalNumberOfResults(res.data.totalResults);
         } else {
           if (res.data.Error === "Too many results.") {
-            setDialogBox('Too many search results, keep typing');
+            setDialogBox({
+              output: 'Too many search results.',
+              tip: 'Keep typing and use an entire movie name.'
+            })
           } else {
-            setDialogBox('No movie found!');
+            setDialogBox({
+              output: 'No movie found!',
+              tip: 'Search only for movie titles; not actors or TV shows.'
+            })
           }
           setResults([]);
           setTotalNumberOfResults(0);
         }
       })
     } else {
-      setDialogBox('Enter any movie name here');
+      setDialogBox({ 
+        output: 'Enter any movie you want to nominate.',
+        tip: 'Search by the movie name, not actor or year.'
+      });
       setResults([]);
     }
   }, [userInput])
@@ -82,6 +99,8 @@ const Search: React.FC<Props> = ({
           value={userInput}
           autoComplete="off"
           placeholder="Search for movies here"
+          onFocus={() => setSearchFocus(true)}
+          onBlur={() => setSearchFocus(false)}
         />
         {userInput.length > 0 && (
           <FontAwesomeIcon 
@@ -95,25 +114,30 @@ const Search: React.FC<Props> = ({
           />
         )}
       </div>
-      <div className="output">
-        {results.length > 0 ? (
-          results.map((item: any, index: number) => {
-            return (
-              <div className="item" key={item.imdbID}>
-                <p>{item.Title}</p>
-                <button
-                  onClick={() => handleNomination(index)}
-                  disabled={nominationCache[item.imdbID]}
-                >Nominate</button>
-              </div>
-            )
-          })
-        ) : (
-          <div className="dialog-box">
-            <p>{dialogBox}</p>
-          </div>
-        )}
-      </div>
+      {searchFocus && (
+        <div className="output">
+          {results.length > 0 ? (
+            <ul>
+              {results.map((item: any, index: number) => {
+                return (
+                  <div className="item" key={item.imdbID}>
+                    <p>{item.Title}</p>
+                    <button
+                      onClick={() => handleNomination(index)}
+                      disabled={nominationCache[item.imdbID]}
+                    >Nominate</button>
+                  </div>
+                )
+              })}
+            </ul>
+          ) : (
+            <div className="dialog-box">
+              <p>{dialogBox.output}</p>
+              <p className="dialog-tip">{dialogBox.tip}</p>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }
