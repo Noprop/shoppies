@@ -94,6 +94,7 @@ const Search: React.FC<Props> = ({
         <FontAwesomeIcon 
           icon={faSearch}
           className="search-icon"
+          onClick={() => setSearchFocus(true)}
         />
         <input 
           type="text"
@@ -104,7 +105,6 @@ const Search: React.FC<Props> = ({
           placeholder="Search for movies here"
           onFocus={() => setSearchFocus(true)}
           ref={searchInputRef}
-          // onBlur={() => setSearchFocus(false)}
         />
         {userInput.length > 0 && (
           <FontAwesomeIcon 
@@ -114,13 +114,14 @@ const Search: React.FC<Props> = ({
               setUserInput('');
               setResults([]);
               setTotalNumberOfResults(0);
+              if (!searchFocus) setSearchFocus(true);
             }}
           />
         )}
       </div>
       {searchFocus && (
         <Fragment>
-          <ul className="output">
+          <ul className={"output " + (results.length === 0 && "dialog")}>
             {results.length > 0 ? (
               <Fragment>
                 {results.map((movie: any, index: number) => {
@@ -144,7 +145,7 @@ const Search: React.FC<Props> = ({
                       <button
                         onClick={() => handleNomination(index)}
                         disabled={nominationCache[imdbID] || len === 5}
-                      >Nominate</button>
+                      >Nominate{nominationCache[imdbID] && 'd'}</button>
                     </li>
                   )
                 })}
@@ -156,9 +157,11 @@ const Search: React.FC<Props> = ({
               </li>
             )}
           </ul>
-          <div className="output-controls">
-            <button>Clear 10 movie results</button>
-          </div>
+          {results.length > 0 && (
+            <div className="output-controls">
+              <button>Clear 10 movie results</button>
+            </div>
+          )}
         </Fragment>
       )}
     </div>

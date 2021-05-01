@@ -94,6 +94,12 @@ header {
     height: 510px;
   }
 
+  ul.dialog {
+    height: auto;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
   li {
     padding: 20px;
   }
@@ -128,7 +134,6 @@ header {
         margin: 0;
 
         &:first-of-type {
-          // color: $lightGreen;
           font-weight: 700;
           font-size: 1.8rem;
         }
@@ -147,8 +152,8 @@ header {
       border: 1px solid $calm;
       border-radius: 4px;
       cursor: pointer;
-      // font-family: "Rubik", sans-serif;
       outline: none;
+      width: 106px;
 
       &:hover {
         background-color: $lightGreen;

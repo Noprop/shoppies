@@ -45,6 +45,7 @@ const App = () => {
         <Content 
           nominations={nominations}
           setNominations={setNominations}
+          setSearchFocus={setSearchFocus}
         />
       </div>
       <div 
