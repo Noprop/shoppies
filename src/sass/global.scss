@@ -1,6 +1,6 @@
 // GLOBAL styles
 body {
-  background-color: white;
+  background-color: $calm;
   // color: #c3073f;
   font-family: "Rubik", sans-serif;
   line-height: 1.4;
@@ -9,7 +9,7 @@ body {
 }
 
 .App {
-  max-width: 1200px;
+  max-width: 1120px;
   margin: 0 auto;
 }
 

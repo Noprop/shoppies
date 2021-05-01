@@ -23,6 +23,9 @@ const App = () => {
   return (
     <div className="App">
       <header>
+        <div className="logo-container">
+          <img src="./shoppies-logo.svg" alt="Shoppies logo"/>
+        </div>
         <Search
           nominations={nominations}
           setNominations={setNominations}
