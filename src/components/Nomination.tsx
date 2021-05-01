@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 
 interface Props {
   nominations: any[];
@@ -11,6 +11,8 @@ const Nomination: React.FC<Props> = ({
   setNominations,
   index
 }) => {
+  const [isHovering, setIsHovering] = useState<boolean>(false);
+
   const removeNomination = (): void => {
     if (nominations.length === 1) {
       setNominations([]);
@@ -19,20 +21,34 @@ const Nomination: React.FC<Props> = ({
       newNominations.splice(index, 1)
       setNominations(newNominations);
     }
+    setIsHovering(false);
   }
 
   if (nominations.length <= index) {
-    return <div>
-      <p>empty</p>
-    </div>
+    return <article className="nomination"></article>;
   } else {
-    const { Title } = nominations[index];
+    const { Title, Poster } = nominations[index];
     return (
-      <article className="nomination">
-        <h2>{Title}</h2>
-        <button
-          onClick={removeNomination}
-        >Remove</button>
+      <article 
+        className={"nomination " + (isHovering && "hovering")}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}  
+      >
+        <div className="poster-container">
+          {Poster !== "N/A"
+            ? <img src={Poster} alt={`Poster of ${Title}`} />
+            : <p>none</p>
+          }
+        </div>
+        {isHovering && (
+          <Fragment>
+             <button
+              onClick={removeNomination}
+              className="remove-nomination"
+            >Remove</button>
+            <div className="darken"></div>
+          </Fragment>
+        )}
       </article>
     )
   }

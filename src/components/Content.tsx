@@ -22,28 +22,28 @@ const Content: React.FC<Props> = ({
           <img src="./award_show.svg" alt="Two people winning awards at an award show" />
         </div>
         : 
-        <div>
-          <Nomination 
+        <div className="nomination-display">
+          <Nomination
             nominations={nominations}
             setNominations={setNominations}
             index={0}
           />
-          <Nomination 
+          <Nomination
             nominations={nominations}
             setNominations={setNominations}
             index={1}
           />
-          <Nomination 
+          <Nomination
             nominations={nominations}
             setNominations={setNominations}
             index={2}
           />
-          <Nomination 
+          <Nomination
             nominations={nominations}
             setNominations={setNominations}
             index={3}
           />
-          <Nomination 
+          <Nomination
             nominations={nominations}
             setNominations={setNominations}
             index={4}
