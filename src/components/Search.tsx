@@ -11,13 +11,17 @@ import axios from 'axios';
 interface Props {
   nominations: object[];
   setNominations: React.Dispatch<React.SetStateAction<object[]>>;
+  nominationCache: {
+    [key: string]: boolean;
+  };
 }
 
 type Results = object[];
 
 const Search: React.FC<Props> = ({
   nominations,
-  setNominations
+  setNominations,
+  nominationCache
 }) => {
   const [userInput, setUserInput] = useState<String>('');
   const [results, setResults] = useState<Results>([]);
@@ -67,10 +71,11 @@ const Search: React.FC<Props> = ({
         {results.length > 0 && (
           results.map((item: any, index: number) => {
             return (
-              <div className="item" key={index}>
+              <div className="item" key={item.imdbID}>
                 <p>{item.Title}</p>
                 <button
                   onClick={() => handleNomination(index)}
+                  disabled={nominationCache[item.imdbID]}
                 >Nominate</button>
               </div>
             )

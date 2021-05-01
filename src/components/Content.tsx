@@ -13,7 +13,7 @@ const Content: React.FC<Props> = ({
   return (
     <div className="content">
       {nominations.length === 0
-        ? <div></div>
+        ? <div><h2>no nominations</h2></div>
         : 
         <div>
           <Nomination 

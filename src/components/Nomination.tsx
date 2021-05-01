@@ -12,7 +12,13 @@ const Nomination: React.FC<Props> = ({
   index
 }) => {
   const removeNomination = (): void => {
-
+    if (nominations.length === 1) {
+      setNominations([]);
+    } else {
+      const newNominations = [...nominations];
+      newNominations.splice(index, 1)
+      setNominations(newNominations);
+    }
   }
 
   if (nominations.length <= index) {
