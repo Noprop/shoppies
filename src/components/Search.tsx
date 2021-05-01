@@ -1,14 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Search = () => {
+/* 
+  TODO: 
+  - create dynamic dialogbox
+  - implement cache, total results, and pagination feature
+  - implement see more feature
+*/
+
+interface Props {
+  nominations: object[];
+  setNominations: React.Dispatch<React.SetStateAction<object[]>>;
+}
+
+type Results = object[];
+
+const Search: React.FC<Props> = ({
+  nominations,
+  setNominations
+}) => {
   const [userInput, setUserInput] = useState<String>('');
-  const [results, setResults] = useState<object[]>([]);
-  const [totalResults, setTotalResults] = useState<number>(0);
+  const [results, setResults] = useState<Results>([]);
+  const [totalNumberOfResults, setTotalNumberOfResults] = useState<number>(0);
   const [dialogBox, setDialogBox] = useState<String>('Enter any movie name here');
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     setUserInput(e.currentTarget.value);
+  }
+
+  const handleNomination = (index: number): void => {
+    if (nominations.length <= 5) {
+      setNominations([...nominations, results[index]]);
+    } else {
+      
+    }
   }
 
   useEffect(() => {
@@ -20,14 +45,15 @@ const Search = () => {
         console.log(res);
         if (res.data.Response === "True") {
           setResults(res.data.Search);
-          setTotalResults(res.data.totalResults);
+          setTotalNumberOfResults(res.data.totalResults);
         } else {
           setResults([]);
-          setTotalResults(0);
+          setTotalNumberOfResults(0);
         }
       })
     } else {
       setDialogBox('Enter any movie name here');
+      setResults([]);
     }
   }, [userInput])
 
@@ -39,8 +65,15 @@ const Search = () => {
       />
       <div className="output">
         {results.length > 0 && (
-          results.map((item: any) => {
-            return <p>{item.Title}</p>
+          results.map((item: any, index: number) => {
+            return (
+              <div className="item" key={index}>
+                <p>{item.Title}</p>
+                <button
+                  onClick={() => handleNomination(index)}
+                >Nominate</button>
+              </div>
+            )
           })
         )}
       </div>
