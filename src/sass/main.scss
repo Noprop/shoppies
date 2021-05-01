@@ -1,0 +1,32 @@
+main {
+  h1 {
+    font-size: 6rem;
+    // color: rgb(33, 35, 38);
+    color: rgb(0, 76, 63);
+  }
+  h3 {
+    font-size: 2.3rem;
+    // color: rgb(107, 113, 119);
+    color: rgb(66, 71, 76);
+  }
+  .title-container {
+    margin-left: 7.5%;
+    margin-bottom: 50px;
+    margin-top: 30px;
+  }
+}
+
+.no-nominations {
+  width: 85%;
+  height: 700px;
+  background-color: $green;
+  margin: 0 auto;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 65%;
+  }
+}

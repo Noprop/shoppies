@@ -12,8 +12,15 @@ const Content: React.FC<Props> = ({
 }) => {
   return (
     <main role="main" id="Main">
+      <div className="title-container">
+        <h1>My Nominations</h1>
+        <h3>You currently have 5 nominations</h3>
+      </div>
       {nominations.length === 0
-        ? <div><h2>no nominations</h2></div>
+        ? 
+        <div className="no-nominations">
+          <img src="./award_show.svg" alt="Two people winning awards at an award show" />
+        </div>
         : 
         <div>
           <Nomination 

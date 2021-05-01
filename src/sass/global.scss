@@ -2,7 +2,7 @@
 body {
   background-color: $calm;
   // color: #c3073f;
-  font-family: "Rubik", sans-serif;
+  // font-family: "Rubik", sans-serif;
   line-height: 1.4;
   font-size: 3.2rem;
   overflow: hidden;
@@ -34,4 +34,32 @@ img {
 
 button {
   cursor: pointer;
+}
+
+html {
+  /* Load system fonts */
+  font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI,
+    Roboto, Helvetica Neue, sans-serif;
+
+  /* Make type rendering look crisper */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Deactivate auto-enlargement of small text in Safari */
+  text-size-adjust: 100%;
+
+  /* Enable kerning and optional ligatures */
+  text-rendering: optimizeLegibility;
+}
+
+/**
+ * Form elements render using OS defaults,
+ * so font-family inheritance must be specifically declared
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
 }
