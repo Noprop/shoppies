@@ -65,15 +65,13 @@ header {
   .output {
     position: absolute;
     top: 60px;
-    border-radius: 4px;
+    border-radius: 4px 4px 0 0;
     background-color: $green;
     color: $white;
     width: 100%;
-    padding: 20px;
     font-size: 1.9rem;
 
-    animation-duration: 0.25s;
-    animation-name: focus-search;
+    animation: focus-search 0.25s 1 linear forwards;
 
     p {
       margin: 0;
@@ -83,6 +81,105 @@ header {
     .dialog-tip {
       color: $soft;
       font-size: 1.8rem;
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-y: scroll;
+    height: 510px;
+  }
+
+  li {
+    padding: 20px;
+  }
+
+  .movie {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 20px;
+    min-height: 100px;
+
+    &:hover {
+      background-color: $darkGreen;
+    }
+    &:first-of-type {
+      padding-top: 20px;
+    }
+    &:last-of-type {
+      padding-bottom: 20px;
+    }
+    .poster-container {
+      max-width: 50px;
+      img {
+        border-radius: 2px;
+      }
+    }
+    .info-container {
+      margin-right: auto;
+      margin-left: 10px;
+
+      p {
+        margin: 0;
+
+        &:first-of-type {
+          // color: $lightGreen;
+          font-weight: 700;
+          font-size: 1.8rem;
+        }
+        &:last-of-type {
+          font-size: 1.5rem;
+        }
+      }
+    }
+    button {
+      font-size: 1.6rem;
+      height: 45px;
+      padding: 0 12px;
+      border: 0;
+      background: 0;
+      color: $white;
+      border: 1px solid $calm;
+      border-radius: 4px;
+      cursor: pointer;
+      // font-family: "Rubik", sans-serif;
+      outline: none;
+
+      &:hover {
+        background-color: $lightGreen;
+      }
+    }
+  }
+  .movie.disabled {
+    button {
+      cursor:default;
+      opacity: 0.5
+    }
+  }
+
+  .output-controls {
+    position: absolute;
+    width: 100%;
+    background-color: $green;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 0 4px 4px;
+    top: 570px;
+    font-size: 1.8rem;
+    border-top: 1px solid $grey;
+
+    button {
+      background-color: $green;
+      border: 0;
+      outline: 0;
+      color: $white;
+      font-weight: 500;
+      padding: 5px;
     }
   }
 }
