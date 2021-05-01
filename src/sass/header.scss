@@ -70,6 +70,7 @@ header {
     color: $white;
     width: 100%;
     font-size: 1.9rem;
+    z-index: 50;
 
     animation: focus-search 0.25s 1 linear forwards;
 
@@ -155,7 +156,7 @@ header {
   }
   .movie.disabled {
     button {
-      cursor:default;
+      cursor: default;
       opacity: 0.5
     }
   }
@@ -172,6 +173,7 @@ header {
     top: 570px;
     font-size: 1.8rem;
     border-top: 1px solid $grey;
+    z-index: 50;
 
     button {
       background-color: $green;
@@ -193,4 +195,52 @@ header {
     top: 60px;
     opacity: 1;
   }
+}
+
+@keyframes addBackground {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+// can't use display: none
+@keyframes removeBackground {
+  0% {
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 100vh;
+  }
+  99% {
+    background-color: rgba(0, 0, 0, 0);
+    height: 100vh;
+  }
+  100% {
+    height: 0;
+  }
+}
+
+.cover-screen.false {
+  background-color: rgba(0, 0, 0, 0);
+  animation-name: removeBackground;
+  animation-duration: 0.13s;
+  animation-fill-mode: forwards; // used to keep values on the element at the end
+}
+
+.cover-screen.true {
+  background-color: rgba(0, 0, 0, 0.4);
+  animation-name: addBackground;
+  animation-duration: 0.13s;
+}
+
+.cover-screen {
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition-property: background-color;
+  z-index: 40;
 }

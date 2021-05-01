@@ -5,7 +5,8 @@ import { faSearch, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 /* 
   TODO: 
-  - create dynamic dialogbox
+  - create dynamic dialogbox: DONE
+  - fix static height bug
   - implement cache, total results, and pagination feature
   - implement see more feature
 */
@@ -18,6 +19,7 @@ interface Props {
   };
   searchFocus: boolean;
   setSearchFocus: React.Dispatch<React.SetStateAction<boolean>>;
+  searchInputRef: React.RefObject<HTMLInputElement>;
 }
 interface Dialog {
   output: string,
@@ -32,6 +34,7 @@ const Search: React.FC<Props> = ({
   nominationCache,
   searchFocus,
   setSearchFocus,
+  searchInputRef
 }) => {
   const [userInput, setUserInput] = useState<string>('');
   const [results, setResults] = useState<Results>([]);
@@ -100,7 +103,8 @@ const Search: React.FC<Props> = ({
           autoComplete="off"
           placeholder="Search for movies here"
           onFocus={() => setSearchFocus(true)}
-          onBlur={() => setSearchFocus(true)}
+          ref={searchInputRef}
+          // onBlur={() => setSearchFocus(false)}
         />
         {userInput.length > 0 && (
           <FontAwesomeIcon 
