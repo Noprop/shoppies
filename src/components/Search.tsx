@@ -51,6 +51,7 @@ const Search: React.FC<Props> = ({
           setResults(res.data.Search);
           setTotalNumberOfResults(res.data.totalResults);
         } else {
+          setDialogBox('Too many search results, keep typing');
           setResults([]);
           setTotalNumberOfResults(0);
         }

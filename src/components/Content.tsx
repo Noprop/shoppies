@@ -11,7 +11,7 @@ const Content: React.FC<Props> = ({
   setNominations
 }) => {
   return (
-    <div className="content">
+    <main role="main" id="Main">
       {nominations.length === 0
         ? <div><h2>no nominations</h2></div>
         : 
@@ -43,7 +43,7 @@ const Content: React.FC<Props> = ({
           />
         </div>
       }
-    </div>
+    </main>
   )
 }
 

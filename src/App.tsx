@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import './App.css';
+import './App.scss';
 import Search from './components/Search';
 import Content from './components/Content';
 

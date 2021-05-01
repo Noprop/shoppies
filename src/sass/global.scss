@@ -1,0 +1,33 @@
+// GLOBAL styles
+body {
+  background-color: white;
+  // color: #c3073f;
+  font-family: "Rubik", sans-serif;
+  line-height: 1.4;
+  font-size: 3.2rem;
+  overflow: hidden;
+}
+
+.App {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.wrapper {
+  max-width: 1280px;
+  width: 80%;
+  margin: 0 auto;
+}
