@@ -159,7 +159,18 @@ const Search: React.FC<Props> = ({
           </ul>
           {results.length > 0 && (
             <div className="output-controls">
-              <button>Clear 10 movie results</button>
+              <button
+                onClick={() => {
+                  setUserInput('');
+                  setResults([]);
+                  setTotalNumberOfResults(0);
+                  setDialogBox({
+                    output: 'Enter any movie you want to nominate.', 
+                    tip: 'Search by the movie name, not actor or year.' 
+                  });
+                  setSearchFocus(true);
+                }}
+              >Clear {totalNumberOfResults} movie results</button>
             </div>
           )}
         </Fragment>
