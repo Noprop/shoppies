@@ -12,6 +12,10 @@ header {
   width: 200px;
   display: flex;
   align-items: center;
+
+  img:first-of-type {
+    height: 52px;
+  }
 }
 
 .search {

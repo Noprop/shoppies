@@ -31,7 +31,8 @@ const App = () => {
       <div className="App">
         <header>
           <div className="logo-container">
-            <img src="./shoppies-logo.svg" alt="Shoppies logo"/>
+            <img src="./shoppies-logo-popcorn.svg" alt="Shoppies popcorn"/>
+            <img src="./shoppies-text.svg" alt="Shoppies"/>
           </div>
           <Search
             nominations={nominations}
