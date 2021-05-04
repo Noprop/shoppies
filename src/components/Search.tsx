@@ -181,7 +181,11 @@ const Search: React.FC<Props> = ({
                       <div className="poster-container">
                         {Poster !== "N/A"
                           ? <img src={Poster} alt={`Poster of ${Title}`} />
-                          : <p>none</p>
+                          : <img 
+                              src="./trophy-green.svg" 
+                              alt="Trophy placeholder" 
+                              className="placeholder"
+                            />
                         }
                       </div>
                       <div className="info-container">

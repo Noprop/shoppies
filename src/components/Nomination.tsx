@@ -27,7 +27,7 @@ const Nomination: React.FC<Props> = ({
   if (nominations.length <= index) {
     return <article className="nomination"></article>;
   } else {
-    const { Title, Poster } = nominations[index];
+    const { Title, Poster, Year } = nominations[index];
     return (
       <article 
         className={"nomination " + (isHovering && "hovering")}
@@ -37,7 +37,11 @@ const Nomination: React.FC<Props> = ({
         <div className="poster-container">
           {Poster !== "N/A"
             ? <img src={Poster} alt={`Poster of ${Title}`} />
-            : <p>none</p>
+            : <img
+                src="./trophy-green.svg" 
+                alt="Trophy placeholder" 
+                className="placeholder"
+              />
           }
         </div>
         {isHovering && (
@@ -46,6 +50,10 @@ const Nomination: React.FC<Props> = ({
               onClick={removeNomination}
               className="remove-nomination"
             >Remove</button>
+            <div className="info-container">
+              <p>{Title}</p>
+              <p>({Year})</p>
+            </div>
             <div className="darken"></div>
           </Fragment>
         )}

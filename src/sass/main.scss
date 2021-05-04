@@ -85,7 +85,7 @@ main {
   .darken {
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.65);
     position: absolute;
     top: 0;
     z-index: 20;
@@ -182,3 +182,42 @@ main {
     box-shadow: 0 5px 25px 0 rgba(0,0,0,0.25);
   }
 }
+
+@keyframes slideContainer {
+  from {
+    left: -50px;
+  }
+  to {
+    left: 0px;
+  }
+}
+
+main {
+  .placeholder {
+    max-height: 80%;
+    margin-top: 10%;
+  }
+
+  .info-container {
+    position: absolute;
+    margin-left: 10px;
+    animation: slideContainer 0.5s forwards;
+    z-index: 30;
+    color: $white;
+    top: 45px;
+
+
+    p {
+      margin: 0;
+
+      &:first-of-type {
+        font-weight: 700;
+        font-size: 2.4rem;
+      }
+      &:last-of-type {
+        font-size: 2.1rem;
+      }
+    }
+  }
+}
+
