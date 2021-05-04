@@ -64,7 +64,7 @@ const App = () => {
       <div className="banner">
         <div className="wrapper">
           <h2>Well done, you've selected five nominations!</h2>
-          <p>When you're confident with your selection please click Submit Nominations. You have until May 7th at 12pm to finalize your choices.</p>
+          <p>When you're confident with your selection please click the button below. You have until May 7th at 12pm to finalize your choices.</p>
           <FontAwesomeIcon 
             icon={faTimes}
             className="close-banner"
