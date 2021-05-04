@@ -1,7 +1,7 @@
 main {
   h1 {
     font-size: 6rem;
-    color: rgb(0, 76, 63);
+    color: $green;
   }
   h3 {
     font-size: 2.2rem;
@@ -120,3 +120,65 @@ main {
   }
 }
 
+@keyframes showBanner {
+  from {
+    bottom: -180px;
+  }
+  to {
+    bottom: 0;
+  }
+}
+
+.banner {
+  position: absolute;
+  bottom: 0;
+  background-color: $green;
+  color: $white;
+  padding: 20px 0 20px 0;
+  width: 100vw;
+  animation: showBanner 1s forwards;
+
+  h2 {
+    font-size: 2.9rem;
+  }
+  p {
+    font-size: 2.4rem;
+  }
+  .wrapper { position: relative; }
+  .close-banner {
+    position: absolute;
+    top: 0px;
+    right: 0;
+    cursor: pointer;
+  }
+}
+
+.wrapper {
+  width: 60%; 
+  margin: 0 auto;
+}
+
+.submit-nominations {
+  padding: 13px 20px;
+  margin-top: 30px;
+  border: 0;
+  background-color: $lightGreen;
+  border-radius: 4px;
+  color: $white;
+  font-weight: 700;
+  box-shadow: 0 5px 15px 0 rgba(0,0,0,0.15);
+  font-size: 1.8rem;
+
+  &:hover {
+    box-shadow: 0 5px 20px 0 rgba(0,0,0,0.20);
+    background-color: $green;
+  }
+}
+
+.banner .submit-nominations {
+  margin-top: 0;
+
+  &:hover {
+    box-shadow: 0 5px 25px 0 rgba(0,0,0,0.25);
+  }
+}

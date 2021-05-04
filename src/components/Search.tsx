@@ -13,6 +13,7 @@ interface Props {
   searchFocus: boolean;
   setSearchFocus: React.Dispatch<React.SetStateAction<boolean>>;
   searchInputRef: React.RefObject<HTMLInputElement>;
+  setDisplayBanner: React.Dispatch<React.SetStateAction<boolean>>;
 }
 interface Dialog {
   output: string,
@@ -30,7 +31,8 @@ const Search: React.FC<Props> = ({
   nominationCache,
   searchFocus,
   setSearchFocus,
-  searchInputRef
+  searchInputRef,
+  setDisplayBanner,
 }) => {
   const [userInput, setUserInput] = useState<string>('');
   const [results, setResults] = useState<Results>([]);
@@ -46,8 +48,14 @@ const Search: React.FC<Props> = ({
   }
 
   const handleNomination = (index: number): void => {
-    if (nominations.length < 5) {
+    const len = nominations.length;
+    if (len < 5) {
       setNominations([...nominations, results[index]]);
+      if (len === 4) {
+        setDisplayBanner(true);
+        setSearchFocus(false);
+        setUserInput('');
+      }
     } else {
       
     }
@@ -209,13 +217,14 @@ const Search: React.FC<Props> = ({
                   setSearchFocus(true);
                 }}
                 className="clear-btn"
-              >Clear {paginationButtons.length}0 movie results</button>
+              >Clear {totalNumberOfResults <= 10 ? totalNumberOfResults : paginationButtons.length + '0'} movie results</button>
               {paginationButtons.length > 1 && (
                 <div className="pagination">
                   {paginationButtons.map(pageNum => {
                     return (<button 
                       onClick={() => handlePageChange(pageNum + 1)}
                       className={"pagination-btn " + (pageNumber === pageNum + 1 && "selected")}
+                      key={pageNum}
                     ></button>)
                   })}
                 </div>

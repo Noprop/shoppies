@@ -256,7 +256,7 @@ header {
   background-color: rgba(0, 0, 0, 0);
   animation-name: removeBackground;
   animation-duration: 0.13s;
-  animation-fill-mode: forwards; // used to keep values on the element at the end
+  animation-fill-mode: forwards;
 }
 
 .cover-screen.true {

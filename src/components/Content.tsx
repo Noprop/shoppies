@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from 'react';
+import { Fragment } from 'react';
 import Nomination from './Nomination';
 
 interface Props {
@@ -58,11 +58,14 @@ const Content: React.FC<Props> = ({
             />
           </div>
           <div className="bottom-nomination-info">
-            <p>You have {5 - nominations.length} nominations left. Click <button 
-              className="focus-search-btn"
-              onClick={() => {
-                setSearchFocus(true);
-              }}>here</button> to nominate them.</p>
+            {5 - nominations.length !== 0 
+              ? <p>You have {5 - nominations.length} nomination{5 - nominations.length !== 1 && 's'} left. Click <button 
+                className="focus-search-btn"
+                onClick={() => {
+                  setSearchFocus(true);
+                }}>here</button> to nominate{5 - nominations.length !== 1 ? ' them.' : '.'}</p>
+              : <button className="submit-nominations">Submit Nominations</button>
+            }
           </div>
         </Fragment>
       }
