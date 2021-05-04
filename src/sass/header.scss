@@ -185,13 +185,34 @@ header {
     border-top: 1px solid $grey;
     z-index: 50;
 
-    button {
+    .clear-btn {
       background-color: $green;
       border: 0;
       outline: 0;
       color: $white;
       font-weight: 500;
       padding: 5px;
+      margin-right: 20px;
+    }
+
+    .pagination-btn {
+      height: 23px;
+      width: 23px;
+      background-color: $calm;
+      outline: 0;
+      border: 0;
+      border-radius: 50%;
+      border: 3px solid $lightGreen;
+      margin-right: 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $green;
+      }
+    }
+    .pagination-btn.selected {
+      background-color: $green;
+      cursor: default;
     }
   }
 }

@@ -2,14 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-
-/* 
-  TODO: 
-  - create dynamic dialogbox: DONE
-  - fix static height bug
-  - implement cache, total results, and pagination feature
-  - implement see more feature
-*/
+import { getMovies } from './queries';
 
 interface Props {
   nominations: object[];
@@ -25,6 +18,9 @@ interface Dialog {
   output: string,
   tip: string
 }
+interface ResultsCache {
+  [key: number]: any[]
+}
 
 type Results = object[];
 
@@ -39,7 +35,11 @@ const Search: React.FC<Props> = ({
   const [userInput, setUserInput] = useState<string>('');
   const [results, setResults] = useState<Results>([]);
   const [totalNumberOfResults, setTotalNumberOfResults] = useState<number>(0);
+  const [resultsCache, setResultsCache] = useState<ResultsCache>({});
   const [dialogBox, setDialogBox] = useState<Dialog>({ output: 'Enter any movie you want to nominate.', tip: 'Search by the movie name, not actor or year.' });
+  const [paginationButtons, setPaginationButtons] = useState<number[]>([]);
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     setUserInput(e.currentTarget.value);
@@ -55,6 +55,7 @@ const Search: React.FC<Props> = ({
 
   useEffect(() => {
     if (userInput.length > 0) {
+      if (pageNumber !== 1) setPageNumber(1);
       axios({
         method: 'GET',
         url: `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${userInput}&type=movie&page=1`
@@ -62,6 +63,9 @@ const Search: React.FC<Props> = ({
         console.log(res);
         if (res.data.Response === "True") {
           setResults(res.data.Search);
+          setResultsCache({
+            1: res.data.Search
+          })
           setTotalNumberOfResults(res.data.totalResults);
         } else {
           if (res.data.Error === "Too many results.") {
@@ -76,6 +80,7 @@ const Search: React.FC<Props> = ({
             })
           }
           setResults([]);
+          setResultsCache([]);
           setTotalNumberOfResults(0);
         }
       })
@@ -87,6 +92,39 @@ const Search: React.FC<Props> = ({
       setResults([]);
     }
   }, [userInput])
+
+  useEffect(() => {
+    const paginate = totalNumberOfResults / 10
+    if (paginate > 1) {
+      const pagArray: number[] = [];
+      for (let i = 0; i < paginate && i < 6; i++) {
+        pagArray.push(i);
+      }
+      setPaginationButtons(pagArray);
+    }
+  }, [totalNumberOfResults])
+  
+  const handlePageChange = async (pageNum: number) => {
+    if (!loading) {
+      setPageNumber(pageNum);
+      setLoading(true);
+      if (resultsCache[pageNum]) {
+        setResults(resultsCache[pageNum]);
+      } else {
+        const movies = await getMovies(userInput, pageNum);
+        console.log(movies);
+        if (movies.Response === 'True') {
+          console.log(movies.Search);
+          setResults(movies.Search);
+          setResultsCache({
+            ...resultsCache,
+            [pageNum]: movies.Search
+          })
+        }
+      }
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="search">
@@ -170,7 +208,18 @@ const Search: React.FC<Props> = ({
                   });
                   setSearchFocus(true);
                 }}
-              >Clear {totalNumberOfResults} movie results</button>
+                className="clear-btn"
+              >Clear {paginationButtons.length}0 movie results</button>
+              {paginationButtons.length > 1 && (
+                <div className="pagination">
+                  {paginationButtons.map(pageNum => {
+                    return (<button 
+                      onClick={() => handlePageChange(pageNum + 1)}
+                      className={"pagination-btn " + (pageNumber === pageNum + 1 && "selected")}
+                    ></button>)
+                  })}
+                </div>
+              )}
             </div>
           )}
         </Fragment>
