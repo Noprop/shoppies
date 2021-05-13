@@ -64,11 +64,12 @@ const Search: React.FC<Props> = ({
   useEffect(() => {
     if (userInput.length > 0) {
       if (pageNumber !== 1) setPageNumber(1);
+      const checkSearchInput = userInput;
       axios({
         method: 'GET',
         url: `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${userInput}&type=movie&page=1`
       }).then(res => {
-        console.log(res);
+        if (checkSearchInput !== userInput) return; // handle async responses
         if (res.data.Response === "True") {
           setResults(res.data.Search);
           setResultsCache({
@@ -120,9 +121,7 @@ const Search: React.FC<Props> = ({
         setResults(resultsCache[pageNum]);
       } else {
         const movies = await getMovies(userInput, pageNum);
-        console.log(movies);
         if (movies.Response === 'True') {
-          console.log(movies.Search);
           setResults(movies.Search);
           setResultsCache({
             ...resultsCache,
